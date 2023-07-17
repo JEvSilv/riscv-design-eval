@@ -1,0 +1,400 @@
+# SimVision Command Script (Qui Abr 13 14:36:12 -03 2023)
+#
+# Version 19.11.a001
+#
+# You can restore this configuration with:
+#
+#      xrun -64 -access +rwc -sv ./top.sv ./freechips.rocketchip.system.DefaultConfig.behav_srams.v ./freechips.rocketchip.system.DefaultConfig.v freechips.rocketchip.system.DefaultConfig/plusarg_reader.v freechips.rocketchip.system.DefaultConfig/AsyncResetReg.v -verbose -debug -linedebug +define+RANDOMIZE_DELAY=2 +define+PRINTF_COND=1 +define+STOP_COND=0 +define+CLOCK_PERIOD=1.0 +define+RANDOMIZE_MEM_INIT +define+RANDOMIZE_REG_INIT +define+RANDOMIZE_GARBAGE_ASSIGN +define+RANDOMIZE_INVALID_ASSIGN -defparam top.th.mem.sram.mem.mem_ext.TEST_FILE_PARAM=freechips.rocketchip.system.DefaultConfig/hello_1.hex -input restore.tcl
+#
+
+
+#
+# Preferences
+#
+preferences set plugin-enable-svdatabrowser-new 1
+preferences set toolbar-sendToIndago-WaveWindow {
+  usual
+  position -pos 1
+}
+preferences set toolbar-Standard-Console {
+  usual
+  position -pos 1
+}
+preferences set toolbar-Search-Console {
+  usual
+  position -pos 2
+}
+preferences set plugin-enable-groupscope 0
+preferences set sb-display-values 1
+preferences set plugin-enable-interleaveandcompare 0
+preferences set plugin-enable-waveformfrequencyplot 0
+preferences set dont-show-read-access-warning 1
+
+#
+# Simulator
+#
+database require simulator -hints {
+	simulator "xrun -64 -access +rwc -sv ./top.sv ./freechips.rocketchip.system.DefaultConfig.behav_srams.v ./freechips.rocketchip.system.DefaultConfig.v freechips.rocketchip.system.DefaultConfig/plusarg_reader.v freechips.rocketchip.system.DefaultConfig/AsyncResetReg.v -gui -verbose -debug -linedebug +define+RANDOMIZE_DELAY=2 +define+PRINTF_COND=1 +define+STOP_COND=0 +define+CLOCK_PERIOD=1.0 +define+RANDOMIZE_MEM_INIT +define+RANDOMIZE_REG_INIT +define+RANDOMIZE_GARBAGE_ASSIGN +define+RANDOMIZE_INVALID_ASSIGN -defparam top.th.mem.sram.mem.mem_ext.TEST_FILE_PARAM=freechips.rocketchip.system.DefaultConfig/hello_1.hex -input restore.tcl"
+}
+#
+# Groups
+#
+catch {group new -name PCS -overlay 0}
+catch {group new -name INSTS -overlay 0}
+catch {group new -name CLK/RST -overlay 0}
+catch {group new -name MEM -overlay 0}
+catch {group new -name {Group 1} -overlay 0}
+catch {group new -name Cache -overlay 0}
+catch {group new -name CACHE -overlay 0}
+group using PCS
+group set -overlay 0
+group set -comment {}
+group clear 0 end
+
+group insert \
+    [subst  {simulator::[format {top.th.dut.tile.core.mem_npc[39:0]}]} ] \
+    [subst  {simulator::[format {top.th.dut.tile.core.io_rocc_cmd_bits_inst_opcode[6:0]}]} ] \
+    [subst  {simulator::[format {top.th.dut.tile.core.mem_pc_valid}]} ] \
+    [subst  {simulator::[format {top.th.dut.tile.core.mem_npc_misaligned}]} ] \
+    [subst  {simulator::[format {top.th.dut.tile.core.mem_reg_pc[39:0]}]} ] \
+    [subst  {simulator::[format {top.th.dut.tile.core.take_pc_mem_wb}]} ] \
+    [subst  {simulator::[format {top.th.dut.tile.core.take_pc_mem}]} ] \
+    [subst  {simulator::[format {top.th.dut.tile.core.mem_wrong_npc}]} ] \
+    [subst  {simulator::[format {top.th.dut.tile.core.wb_reg_pc[39:0]}]} ] \
+    [subst  {simulator::[format {top.th.dut.tile.core.take_pc_wb}]} ]
+group using INSTS
+group set -overlay 0
+group set -comment {}
+group clear 0 end
+
+group insert \
+    [subst  {simulator::[format {top.th.dut.tile.core.wb_reg_raw_inst[31:0]}]} ] \
+    [subst  {simulator::[format {top.th.dut.tile.core.ibuf_io_inst_0_valid}]} ] \
+    [subst  {simulator::[format {top.th.dut.tile.core.inst[31:0]}]} ] \
+    [subst  {simulator::[format {top.th.dut.tile.core.io_fpu_inst[31:0]}]} ] \
+    [subst  {simulator::[format {top.th.dut.tile.core.io_imem_resp_bits_xcpt_ae_inst}]} ] \
+    [subst  {simulator::[format {top.th.dut.tile.core.io_imem_resp_bits_xcpt_pf_inst}]} ] \
+    [subst  {simulator::[format {top.th.dut.tile.core.io_rocc_cmd_bits_inst_funct[6:0]}]} ] \
+    [subst  {simulator::[format {top.th.dut.tile.core.io_rocc_cmd_bits_inst_opcode[6:0]}]} ] \
+    [subst  {simulator::[format {top.th.dut.tile.core.io_rocc_cmd_bits_inst_rd[4:0]}]} ] \
+    [subst  {simulator::[format {top.th.dut.tile.core.io_rocc_cmd_bits_inst_xd}]} ] \
+    [subst  {simulator::[format {top.th.dut.tile.core.mem_reg_inst[31:0]}]} ] \
+    [subst  {simulator::[format {top.th.dut.tile.core.mem_reg_raw_inst[31:0]}]} ] \
+    [subst  {simulator::[format {top.th.dut.tile.core.wb_reg_inst[31:0]}]} ] \
+    [subst  {simulator::[format {top.th.dut.tile.core.ibuf_io_inst_0_ready}]} ] \
+    [subst  {simulator::[format {top.th.dut.tile.core.ibuf_io_inst_0_bits_xcpt1_pf_inst}]} ] \
+    [subst  {simulator::[format {top.th.dut.tile.core.ibuf_io_inst_0_bits_xcpt1_ae_inst}]} ] \
+    [subst  {simulator::[format {top.th.dut.tile.core.ibuf_io_inst_0_bits_xcpt0_pf_inst}]} ] \
+    [subst  {simulator::[format {top.th.dut.tile.core.ibuf_io_inst_0_bits_xcpt0_ae_inst}]} ] \
+    [subst  {simulator::[format {top.th.dut.tile.core.ibuf_io_inst_0_bits_replay}]} ] \
+    [subst  {simulator::[format {top.th.dut.tile.core.ibuf_io_inst_0_bits_rvc}]} ]
+group using CLK/RST
+group set -overlay 0
+group set -comment {}
+group clear 0 end
+
+group insert \
+    [subst  {simulator::[format {top.io_success}]} ] \
+    [subst  {simulator::[format {top.clock}]} ] \
+    [subst  {simulator::[format {top.reset}]} ]
+group using MEM
+group set -overlay 0
+group set -comment {}
+group clear 0 end
+
+group insert \
+    [subst  {simulator::[format {top.th.mem.sram.mem.mem_ext.reg_R0_addr[24:0]}]} ] \
+    [subst  {simulator::[format {top.th.mem.sram.mem.mem_ext.reg_R0_ren}]} ] \
+    [subst  {simulator::[format {top.th.mem.sram.mem.mem_ext.R0_addr[24:0]}]} ] \
+    [subst  {simulator::[format {top.th.mem.sram.mem.mem_ext.R0_clk}]} ] \
+    [subst  {simulator::[format {top.th.mem.sram.mem.mem_ext.R0_data[63:0]}]} ] \
+    [subst  {simulator::[format {top.th.mem.sram.mem.mem_ext.R0_en}]} ] \
+    [subst  {simulator::[format {top.th.mem.sram.mem.mem_ext.R0_random[63:0]}]} ] \
+    [subst  {simulator::[format {top.th.mem.sram.mem.mem_ext.W0_addr[24:0]}]} ] \
+    [subst  {simulator::[format {top.th.mem.sram.mem.mem_ext.W0_clk}]} ] \
+    [subst  {simulator::[format {top.th.mem.sram.mem.mem_ext.W0_data[63:0]}]} ] \
+    [subst  {simulator::[format {top.th.mem.sram.mem.mem_ext.W0_en}]} ] \
+    [subst  {simulator::[format {top.th.mem.sram.mem.mem_ext.W0_mask[7:0]}]} ] \
+    [subst  {simulator::[format {top.th.mem.sram.mem.mem_ext.i}]} ] \
+    [subst  {simulator::[format {top.th.mem.sram.mem.mem_ext.initvar}]} ] \
+    [subst  {simulator::[format {top.th.mem.sram.mem.mem_ext.ram[33554431:0]}]} ]
+group using {Group 1}
+group set -overlay 0
+group set -comment {}
+group clear 0 end
+
+group insert \
+    [subst  {simulator::[format {top.th.dut.tile.dcache.data.data_arrays_0.data_arrays_0_ext.RW0_wmode}]} ] \
+    [subst  {simulator::[format {top.th.dut.tile.dcache.data.data_arrays_0.data_arrays_0_ext.RW0_wmask[31:0]}]} ] \
+    [subst  {simulator::[format {top.th.dut.tile.dcache.data.data_arrays_0.data_arrays_0_ext.RW0_wdata[255:0]}]} ] \
+    [subst  {simulator::[format {top.th.dut.tile.dcache.data.data_arrays_0.data_arrays_0_ext.RW0_rdata[255:0]}]} ] \
+    [subst  {simulator::[format {top.th.dut.tile.dcache.data.data_arrays_0.data_arrays_0_ext.RW0_random[255:0]}]} ] \
+    [subst  {simulator::[format {top.th.dut.tile.dcache.data.data_arrays_0.data_arrays_0_ext.RW0_en}]} ] \
+    [subst  {simulator::[format {top.th.dut.tile.dcache.data.data_arrays_0.data_arrays_0_ext.RW0_addr[8:0]}]} ] \
+    [subst  {simulator::[format {top.th.dut.tile.dcache.data.data_arrays_0.data_arrays_0_ext.RW0_clk}]} ]
+group using Cache
+group set -overlay 0
+group set -comment {}
+group clear 0 end
+
+group insert \
+    [subst  {simulator::[format {top.th.dut.tile.dcache.data.data_arrays_0.data_arrays_0_ext.reg_RW0_ren}]} ] \
+    [subst  {simulator::[format {top.th.dut.tile.dcache.data.data_arrays_0.data_arrays_0_ext.reg_RW0_addr[8:0]}]} ] \
+    [subst  {simulator::[format {top.th.dut.tile.dcache.data.data_arrays_0.data_arrays_0_ext.ram[511:0]}]} ] \
+    [subst  {simulator::[format {top.th.dut.tile.dcache.data.data_arrays_0.data_arrays_0_ext.initvar}]} ] \
+    [subst  {simulator::[format {top.th.dut.tile.dcache.data.data_arrays_0.data_arrays_0_ext.i}]} ] \
+    [subst  {simulator::[format {top.th.dut.tile.dcache.data.data_arrays_0.data_arrays_0_ext.RW0_wmode}]} ] \
+    [subst  {simulator::[format {top.th.dut.tile.dcache.data.data_arrays_0.data_arrays_0_ext.RW0_wmask[31:0]}]} ] \
+    [subst  {simulator::[format {top.th.dut.tile.dcache.data.data_arrays_0.data_arrays_0_ext.RW0_wdata[255:0]}]} ] \
+    [subst  {simulator::[format {top.th.dut.tile.dcache.data.data_arrays_0.data_arrays_0_ext.RW0_rdata[255:0]}]} ] \
+    [subst  {simulator::[format {top.th.dut.tile.dcache.data.data_arrays_0.data_arrays_0_ext.RW0_random[255:0]}]} ] \
+    [subst  {simulator::[format {top.th.dut.tile.dcache.data.data_arrays_0.data_arrays_0_ext.RW0_en}]} ] \
+    [subst  {simulator::[format {top.th.dut.tile.dcache.data.data_arrays_0.data_arrays_0_ext.RW0_addr[8:0]}]} ] \
+    [subst  {simulator::[format {top.th.dut.tile.dcache.data.data_arrays_0.data_arrays_0_ext.RW0_clk}]} ]
+group using CACHE
+group set -overlay 0
+group set -comment {}
+group clear 0 end
+
+group insert \
+    [subst  {simulator::[format {top.th.dut.tile.dcache.data.data_arrays_0.data_arrays_0_ext.RW0_clk}]} ] \
+    [subst  {simulator::[format {top.th.dut.tile.dcache.data.data_arrays_0.data_arrays_0_ext.RW0_addr[8:0]}]} ] \
+    [subst  {simulator::[format {top.th.dut.tile.dcache.data.data_arrays_0.data_arrays_0_ext.RW0_en}]} ] \
+    [subst  {simulator::[format {top.th.dut.tile.dcache.data.data_arrays_0.data_arrays_0_ext.RW0_random[255:0]}]} ] \
+    [subst  {simulator::[format {top.th.dut.tile.dcache.data.data_arrays_0.data_arrays_0_ext.RW0_rdata[255:0]}]} ] \
+    [subst  {simulator::[format {top.th.dut.tile.dcache.data.data_arrays_0.data_arrays_0_ext.RW0_wdata[255:0]}]} ] \
+    [subst  {simulator::[format {top.th.dut.tile.dcache.data.data_arrays_0.data_arrays_0_ext.RW0_wmask[31:0]}]} ] \
+    [subst  {simulator::[format {top.th.dut.tile.dcache.data.data_arrays_0.data_arrays_0_ext.RW0_wmode}]} ] \
+    [subst  {simulator::[format {top.th.dut.tile.dcache.data.data_arrays_0.data_arrays_0_ext.i}]} ] \
+    [subst  {simulator::[format {top.th.dut.tile.dcache.data.data_arrays_0.data_arrays_0_ext.initvar}]} ] \
+    [subst  {simulator::[format {top.th.dut.tile.dcache.data.data_arrays_0.data_arrays_0_ext.ram[511:0]}]} ] \
+    [subst  {simulator::[format {top.th.dut.tile.dcache.data.data_arrays_0.data_arrays_0_ext.reg_RW0_addr[8:0]}]} ] \
+    [subst  {simulator::[format {top.th.dut.tile.dcache.data.data_arrays_0.data_arrays_0_ext.reg_RW0_ren}]} ]
+
+#
+# Mnemonic Maps
+#
+mmap new  -reuse -name {Boolean as Logic} -radix %b -contents {{%c=FALSE -edgepriority 1 -shape low}
+{%c=TRUE -edgepriority 1 -shape high}}
+mmap new  -reuse -name {Example Map} -radix %x -contents {{%b=11???? -bgcolor orange -label REG:%x -linecolor yellow -shape bus}
+{%x=1F -bgcolor red -label ERROR -linecolor white -shape EVENT}
+{%x=2C -bgcolor red -label ERROR -linecolor white -shape EVENT}
+{%x=* -label %x -linecolor gray -shape bus}}
+
+#
+# Design Browser windows
+#
+if {[catch {window new WatchList -name "Design Browser 1" -geometry 1850x911+70+27}] != ""} {
+    window geometry "Design Browser 1" 1850x911+70+27
+}
+window target "Design Browser 1" on
+browser using {Design Browser 1}
+browser set -scope [subst  {simulator::[format {}]} ]
+browser set \
+    -signalsort name
+browser yview see [subst  {simulator::[format {}]} ]
+browser timecontrol set -lock 0
+
+#
+# Waveform windows
+#
+if {[catch {window new WaveWindow -name "Waveform 1" -geometry 1850x911+70+27}] != ""} {
+    window geometry "Waveform 1" 1850x911+70+27
+}
+window target "Waveform 1" on
+waveform using {Waveform 1}
+waveform sidebar select designbrowser
+waveform set \
+    -primarycursor TimeA \
+    -signalnames name \
+    -signalwidth 175 \
+    -units ns \
+    -valuewidth 75
+waveform baseline set -time 1017ns
+
+
+set groupId0 [waveform add -groups CLK/RST]
+set gpGlist0 [waveform hierarchy contents $groupId0]
+set gpID0 [lindex $gpGlist0 0]
+foreach {name attrs} [subst  {
+    {simulator::[format {top.io_success}]} {-color #ffff00}
+    {simulator::[format {top.clock}]} {-color #ffff00}
+    {simulator::[format {top.reset}]} {-color #ffff00}
+}] childcmds {
+    {}
+    {}
+    {}
+} {
+    set expected [ join [waveform signals -format fullpath $gpID0] ]
+    if {[string equal $name $expected] || $name == "cdivider"} {
+        if {$attrs != ""} {
+            eval waveform format $gpID0 $attrs
+        }
+        if { $childcmds != ""} {
+            eval $childcmds
+        }
+    }
+    set gpGlist0 [lrange $gpGlist0 1 end]
+    set gpID0 [lindex $gpGlist0 0]
+}
+waveform hierarchy collapse $groupId0
+
+
+set groupId0 [waveform add -groups PCS]
+set gpGlist0 [waveform hierarchy contents $groupId0]
+set gpID0 [lindex $gpGlist0 0]
+foreach {name attrs} [subst  {
+    {simulator::[format {top.th.dut.tile.core.mem_npc[39:0]}]} {-color #ff9900}
+    {simulator::[format {top.th.dut.tile.core.io_rocc_cmd_bits_inst_opcode[6:0]}]} {-color #ff9900}
+    {simulator::[format {top.th.dut.tile.core.mem_pc_valid}]} {-color #ff9900}
+    {simulator::[format {top.th.dut.tile.core.mem_npc_misaligned}]} {-color #ff9900}
+    {simulator::[format {top.th.dut.tile.core.mem_reg_pc[39:0]}]} {-color #ff9900}
+    {simulator::[format {top.th.dut.tile.core.take_pc_mem_wb}]} {-color #ff9900}
+    {simulator::[format {top.th.dut.tile.core.take_pc_mem}]} {-color #ff9900}
+    {simulator::[format {top.th.dut.tile.core.mem_wrong_npc}]} {-color #ff9900}
+    {simulator::[format {top.th.dut.tile.core.wb_reg_pc[39:0]}]} {-color #ff9900}
+    {simulator::[format {top.th.dut.tile.core.take_pc_wb}]} {-color #ff9900}
+}] childcmds {
+    {}
+    {}
+    {}
+    {}
+    {}
+    {}
+    {}
+    {}
+    {}
+    {}
+} {
+    set expected [ join [waveform signals -format fullpath $gpID0] ]
+    if {[string equal $name $expected] || $name == "cdivider"} {
+        if {$attrs != ""} {
+            eval waveform format $gpID0 $attrs
+        }
+        if { $childcmds != ""} {
+            eval $childcmds
+        }
+    }
+    set gpGlist0 [lrange $gpGlist0 1 end]
+    set gpID0 [lindex $gpGlist0 0]
+}
+waveform hierarchy collapse $groupId0
+
+
+set groupId0 [waveform add -groups INSTS]
+waveform hierarchy collapse $groupId0
+
+
+set groupId0 [waveform add -groups CACHE]
+set gpGlist0 [waveform hierarchy contents $groupId0]
+set gpID0 [lindex $gpGlist0 0]
+foreach {name attrs} [subst  {
+    {simulator::[format {top.th.dut.tile.dcache.data.data_arrays_0.data_arrays_0_ext.RW0_clk}]} {-color #0099ff}
+    {simulator::[format {top.th.dut.tile.dcache.data.data_arrays_0.data_arrays_0_ext.RW0_addr[8:0]}]} {-color #0099ff}
+    {simulator::[format {top.th.dut.tile.dcache.data.data_arrays_0.data_arrays_0_ext.RW0_en}]} {-color #0099ff}
+    {simulator::[format {top.th.dut.tile.dcache.data.data_arrays_0.data_arrays_0_ext.RW0_random[255:0]}]} {-color #0099ff}
+    {simulator::[format {top.th.dut.tile.dcache.data.data_arrays_0.data_arrays_0_ext.RW0_rdata[255:0]}]} {-color #0099ff}
+    {simulator::[format {top.th.dut.tile.dcache.data.data_arrays_0.data_arrays_0_ext.RW0_wdata[255:0]}]} {-color #0099ff}
+    {simulator::[format {top.th.dut.tile.dcache.data.data_arrays_0.data_arrays_0_ext.RW0_wmask[31:0]}]} {-color #0099ff}
+    {simulator::[format {top.th.dut.tile.dcache.data.data_arrays_0.data_arrays_0_ext.RW0_wmode}]} {-color #0099ff}
+    {simulator::[format {top.th.dut.tile.dcache.data.data_arrays_0.data_arrays_0_ext.i}]} {-color #0099ff}
+    {simulator::[format {top.th.dut.tile.dcache.data.data_arrays_0.data_arrays_0_ext.initvar}]} {-color #0099ff}
+    {simulator::[format {top.th.dut.tile.dcache.data.data_arrays_0.data_arrays_0_ext.ram[511:0]}]} {-color #0099ff}
+    {simulator::[format {top.th.dut.tile.dcache.data.data_arrays_0.data_arrays_0_ext.reg_RW0_addr[8:0]}]} {-color #0099ff}
+    {simulator::[format {top.th.dut.tile.dcache.data.data_arrays_0.data_arrays_0_ext.reg_RW0_ren}]} {-color #0099ff}
+}] childcmds {
+    {}
+    {}
+    {}
+    {}
+    {}
+    {}
+    {}
+    {}
+    {}
+    {}
+    {}
+    {}
+    {}
+} {
+    set expected [ join [waveform signals -format fullpath $gpID0] ]
+    if {[string equal $name $expected] || $name == "cdivider"} {
+        if {$attrs != ""} {
+            eval waveform format $gpID0 $attrs
+        }
+        if { $childcmds != ""} {
+            eval $childcmds
+        }
+    }
+    set gpGlist0 [lrange $gpGlist0 1 end]
+    set gpID0 [lindex $gpGlist0 0]
+}
+waveform hierarchy collapse $groupId0
+
+
+set groupId0 [waveform add -groups MEM]
+set gpGlist0 [waveform hierarchy contents $groupId0]
+set gpID0 [lindex $gpGlist0 0]
+foreach {name attrs} [subst  {
+    {simulator::[format {top.th.mem.sram.mem.mem_ext.reg_R0_addr[24:0]}]} {-color #ff0099}
+    {simulator::[format {top.th.mem.sram.mem.mem_ext.reg_R0_ren}]} {-color #ff0099}
+    {simulator::[format {top.th.mem.sram.mem.mem_ext.R0_addr[24:0]}]} {-color #ff0099}
+    {simulator::[format {top.th.mem.sram.mem.mem_ext.R0_clk}]} {-color #ff0099}
+    {simulator::[format {top.th.mem.sram.mem.mem_ext.R0_data[63:0]}]} {-color #ff0099}
+    {simulator::[format {top.th.mem.sram.mem.mem_ext.R0_en}]} {-color #ff0099}
+    {simulator::[format {top.th.mem.sram.mem.mem_ext.R0_random[63:0]}]} {-color #ff0099}
+    {simulator::[format {top.th.mem.sram.mem.mem_ext.W0_addr[24:0]}]} {-color #ff0099}
+    {simulator::[format {top.th.mem.sram.mem.mem_ext.W0_clk}]} {-color #ff0099}
+    {simulator::[format {top.th.mem.sram.mem.mem_ext.W0_data[63:0]}]} {-color #ff0099}
+    {simulator::[format {top.th.mem.sram.mem.mem_ext.W0_en}]} {-color #ff0099}
+    {simulator::[format {top.th.mem.sram.mem.mem_ext.W0_mask[7:0]}]} {-color #ff0099}
+    {simulator::[format {top.th.mem.sram.mem.mem_ext.i}]} {-color #ff0099}
+    {simulator::[format {top.th.mem.sram.mem.mem_ext.initvar}]} {-color #ff0099}
+    {simulator::[format {top.th.mem.sram.mem.mem_ext.ram[33554431:0]}]} {-color #ff0099}
+}] childcmds {
+    {}
+    {}
+    {}
+    {}
+    {}
+    {}
+    {}
+    {}
+    {}
+    {}
+    {}
+    {}
+    {}
+    {}
+    {}
+} {
+    set expected [ join [waveform signals -format fullpath $gpID0] ]
+    if {[string equal $name $expected] || $name == "cdivider"} {
+        if {$attrs != ""} {
+            eval waveform format $gpID0 $attrs
+        }
+        if { $childcmds != ""} {
+            eval $childcmds
+        }
+    }
+    set gpGlist0 [lrange $gpGlist0 1 end]
+    set gpID0 [lindex $gpGlist0 0]
+}
+waveform hierarchy collapse $groupId0
+
+
+waveform xview limits 0 4689ns
+
+#
+# Waveform Window Links
+#
+
+#
+# Console windows
+#
+console set -windowname Console
+window geometry Console 1850x891+70+27
+
+#
+# Layout selection
+#
